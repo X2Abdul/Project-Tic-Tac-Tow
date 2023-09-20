@@ -35,6 +35,19 @@ const gameBoard = (() => {
       ) {
         return 'O';
       }
+
+      // Check for a draw
+      let isDraw = true;
+      for (let i = 0; i < board.length; i++) {
+        if (board[i] === undefined) {
+          isDraw = false;
+          break;
+        }
+      }
+
+      if (isDraw) {
+        return 'Draw';
+      }
     
       return 'No Winner';
     }
@@ -81,21 +94,27 @@ const gameBoard = (() => {
           checkPlayer = false;
           box.parentElement.classList.add('cells-pointer')
           console.log(board.checkForWinner())
-          if(board.checkForWinner() === 'X'){
-            endScreen.textContent = 'Player 1(X) Wins'
-            endScreen.classList.add('end')
-          } 
+          
         }else{
           box.textContent = player2.getSign();
           board.setContent(player2.getSign(), box.id)
           turnIndicator.textContent = 'Player 1'
           box.parentElement.classList.add('cells-pointer')
           checkPlayer = true;
+          
+        }if(board.checkForWinner() === 'X'){
+            endScreen.textContent = 'Player 1(X) Wins'
+            endScreen.classList.add('end')
+          }
           if(board.checkForWinner() === 'O'){
             endScreen.textContent = 'Player 2(O) Wins'
             endScreen.classList.add('end')
           }
-        }
+          if(board.checkForWinner() === 'Draw'){
+            endScreen.textContent = 'Draw'
+            endScreen.classList.add('end')
+          }
+
         clicked = true
       }
 
