@@ -51,11 +51,23 @@ const gameBoard = (() => {
     
       return 'No Winner';
     }
+
+    function reset(){
+      const boxes = document.querySelectorAll('.content')
+      boxes.forEach(box =>{
+        box.innerHTML = "&nbsp;"
+      })
+
+      for(let i = 0; i < board.length; i++){
+        board[i] = undefined
+      }
+    }
   
     return {
       board,
       setContent,
       checkForWinner,
+      reset,
     };
   })();
   
@@ -79,14 +91,19 @@ const gameBoard = (() => {
   const boxes = document.querySelectorAll('.content')
   const endScreen = document.querySelector('.endScreen')
   const turnIndicator = document.querySelector('.player')
+
+  endScreen.addEventListener('click', function(){
+    board.reset()
+    endScreen.classList.remove('end')
+  })
   
   let checkPlayer = true  // True = Player 1  False = PLayer 2
   
   boxes.forEach(box =>{
-    let clicked = false
+    
     box.addEventListener('click', function(){
       
-      if(!clicked){
+      if(box.innerHTML === '&nbsp;'){
         if(checkPlayer){
           box.textContent = player1.getSign();
           board.setContent(player1.getSign(), box.id)
@@ -113,9 +130,7 @@ const gameBoard = (() => {
           if(board.checkForWinner() === 'Draw'){
             endScreen.textContent = 'Draw'
             endScreen.classList.add('end')
-          }
-
-        clicked = true
+          }       
       }
 
     })
