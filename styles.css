@@ -22,7 +22,8 @@ body{
 
 .container{
     height: 40vh;
-    padding-top: 20vh;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
     background-color: black;
     display: grid;
     grid-template-columns: repeat(3, 100px); 
@@ -36,7 +37,11 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    cursor:pointer;
+}
+
+.cells-pointer{
+    cursor:default;
 }
 
 .cells:hover{
